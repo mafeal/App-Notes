@@ -1,0 +1,42 @@
+.form-panel {
+    margin: 0;
+    width: 30%;
+    min-width: max-content;
+    padding: 10px;
+    text-align: center;
+    background-color: floralwhite;
+    border-right: solid 1px rgb(182, 182, 182);
+}
+
+.form-title {
+    padding: 5px;
+    min-width: max-content;
+    margin-bottom: 5px;
+    font-weight: bold;
+    background-color: #ffffff;
+    box-shadow: black 1px 1px 3px;
+}
+
+.form-field {
+    margin: 15px 5px 0px 0px;
+}
+
+.form-note-title, .form-note-body {
+    text-align: left;
+    padding-bottom: 10px;
+    width: 100%;
+}
+
+.label {
+    padding-bottom: 3px;
+    text-align: left;
+}
+
+.input {
+    width: 100%;
+}
+
+.textarea {
+    min-height: 120px;
+}
+

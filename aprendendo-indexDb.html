@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprendendo IndexedDB</title>
+</head>
+
+<body>
+    <section>
+        <h1>Como funciona o IndexedDB:</h1>
+        <p>Trata-se de um banco de dados não relacional, ou seja, não usa a estrutura de tabelas e colunas com tipos definidos.</p>
+        <p>Ele usa uma estrutura de armazenamento de objetos (Object Stores), que suporta qualquer objeto Java Script válido. <br>
+        Eles se equivalem às tabelas do banco relacional, ou seja, o banco comporta diversos ObjectStores.</p>
+        <p>Para se criar um novo banco indexedDB, devese chamar (requisitar) através do window.indexedDB.open('nome_do_banco', versão). <br>
+        Pode-se armazená-lo em uma variável, e esta requisição retorna os métodos que são usados para manipular os dados do banco, que seguem abaixo.</p>        
+        <p>Para se lidar com o indexedDB, usa-se uma tríade de métodos presentes na connection:</p>
+        <ul>
+            <li><b>onupgradeneeded:</b> - responsável por atualizar quando há alterações estruturais no banco, ou seja, cria ou altera um banco. Chamado sempre que altera a versão do banco. </li>
+            <li><b>onsuccess</b> - sempre que uma conexão é estabelecida com sucesso, esse evento é disparado.</li>
+            <li><b>onerror</b> - é executado quando uma conexão é mal sucedida, retornando um objeto com os erros.</li>
+        </ul>
+        <p>Assim, para se alterar a estrutura do banco, deve-se incluir a lógica de alteração no método onupgradeneeded e incrementar a versão na requisição do banco.</p>
+        <p>A inclusão de dados na objectStore é feita através de uma conexão e uma transação (connectio e transactions). A "transaction" é um método da "connection", e <br>
+        deve ser requisitada para se obter, em uma variável, a objectStore que se deseja incluir os dados, definindo as regras de acesso (somente leitura, leitura e gravação, etc) <br>
+        e depois podemos armazenar o objectStore em outra variável, que é o que usaremos para incluir os dados. </p>
+        <p>Aí, então, basta apenas usar o método add() da store para incluir o objeto desejado.</p>
+
+    </section>
+    <script src="./app/models/Nota.js"></script>
+    <script>
+        
+        var connection;
+        var openRequest = window.indexedDB.open('appNotes', 1);
+
+        // cria um banco ou altera um existente
+        openRequest.onupgradeneeded = e => {
+            console.log('Cria ou altera um banco existente!');
+
+            let minhaConnection = e.target.result;
+
+            if(minhaConnection.objectStoreNames.contains('notas')) {
+                minhaConnection.deleteObjectStore('notas')
+            }
+            minhaConnection.createObjectStore('notas', { autoIncrement: true});
+        };
+        
+        // onsucces sempre é executado ao se estabelecer uma execução
+        openRequest.onsuccess = e => {
+            console.log('Conexão obtidacom sucesso!')
+            connection = e.target.result;
+        };
+
+        openRequest.onerror = e => {
+            console.log(e.target.error)
+        };
+
+        function adiciona() {
+
+            let transaction = connection.transaction(['notas'], 'readwrite');
+            
+            let store = transaction.objectStore('notas');
+
+            let nota = new Nota('Nota de teste', 'Teste 1', new Date())
+
+            let request = store.add(nota);
+
+            request.onsuccess = e => {
+                console.log('Nota incluída com sucesso.')
+            }
+
+            request.onerror = e => {
+                console.log('Não foi possível incluir uma nota.')
+            }
+        }
+
+        function listaTodos() {
+            let transaction = connection.transaction(['notas'], 'readwrite');
+            
+            let store = transaction.objectStore('notas');
+
+            let cursor = store.openCursor();
+
+            let notas = [];
+            cursor.onsuccess = e => {
+                console.log('Lista obtida com sucesso.')
+                let atual = e.target.result;
+
+                if(atual) {
+                    let dado = atual.value;
+
+                    notas.push(new Nota(dado.corpo, dado.titulo, dado.data));
+
+                    atual.continue();
+                } else {
+                    console.log(notas);
+                }
+            }
+
+            cursor.onerror = e => {
+                console.log('Não foi possível obter a lista.')
+                console.log(e.target.error.name);
+            }
+        }
+        </script>    
+</body>
+</html>

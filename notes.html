@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="stylesheet" href="./styles/reset.css" />
+      <link rel="stylesheet" href="./styles/styles.css" />
+      <link rel="stylesheet" href="./styles/form.css" />
+      <link rel="stylesheet" href="./styles/notes.css" />
+      <title>App Note</title>
+   </head>
+   <body>
+      <header class="header">APP NOTES</header>
+      <div class="container">
+         <section class="form-panel">
+            <div class="form-title">Inclua sua nota:</div>
+            <form id="form" action="submit" class="form-field" onsubmit="notaController.adiciona(event)">
+               <div class="form-note-title">
+                  <div class="label">Título:</div>
+                  <input id="note-title" name="title" type="text" class="input" />
+               </div>
+               <div class="form-note-details">
+                  <div class="label">Descrição:</div>
+                  <textarea
+                     id="note-body"
+                     name="description"
+                     class="input textarea"
+                  ></textarea>
+               </div>
+               <button id="salvar">Salvar</button>
+               <button id="limpar">Limpar</button>
+            </form>
+         </section>
+         <section class="notes-panel">
+            <div class="search">
+               <label class="label">Buscar nota:</label>
+               <input class="search-field" />
+            </div>
+            <div notes-container class="notes-container"></div>
+         </section>
+      </div>
+      <footer class="footer">Desenvolvido por Marcelo Alves - dez/2020</footer>
+      <script src="./app/models/Nota.js"></script>
+      <script src="./app/controllers/NotaController.js"></script>
+      <script src="./app/helpers/DateHelper.js"></script>
+      <script src="./app/models/ListaNotas.js"></script>
+      <script src="./app/views/NotasView.js"></script>
+      <script src="./app/services/ConnectionFactory.js"></script>
+      <script src="./app/dao/NegociacaoDao.js"></script>
+      <script>
+         let notaController = new NotaController()
+         </script>
+   </body>
+</html>
