@@ -20,3 +20,5 @@ Markdown Guide
 Marked - A markdown parser
 Example project
 Markdown Notes built with Angular on Codepen
+
+- Developing that using VanillaJS e IndexedDB.
