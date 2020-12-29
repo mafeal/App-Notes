@@ -56,9 +56,6 @@ class NotaController {
     edita(event, index, id) {
         event.preventDefault()
 
-        // let nota = this._alteraNota(index, id);
-        // console.log(nota)
-
         ConnectionFactory
             .getConnection()
             .then(connection => {
@@ -77,10 +74,6 @@ class NotaController {
                 console.log("Não foi possível inserir nova nota. - " + erro)
             });
 
-
-        // this._listaNotas.altera(index, this._alteraNota(index));
-        // this._limpaFormulario();
-        // this._notasView.update(this._listaNotas);   
     }
 
     exibeFormEdita(index) {
@@ -143,22 +136,9 @@ class NotaController {
         );
     }
     
-    // _geraNovaId() {
-        
-    //     ConnectionFactory
-    //         .getConnection()
-    //         .then(connection => new NegociacaoDao(connection))
-    //         .then(dao => dao.listaTodosIds())
-    //         .then((lastKey) => lastKey)
-             
-    // }
-
     _limpaFormulario() {
         this._inputCorpo.value = "";
         this._inputTitulo.value = "";
         this._inputTitulo.focus();
     }
-
-        // let id = this._geraNovaId()
-        // console.log(`Esse é o id = ${id}`)
 }
