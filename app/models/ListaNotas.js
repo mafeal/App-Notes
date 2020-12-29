@@ -20,4 +20,8 @@ class ListaNotas {
     altera(index, nota) {
         this._notas[index] = nota
     }
+
+    zeraNotas() {
+        this._notas.length = 0;
+    }
 }

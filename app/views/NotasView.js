@@ -16,27 +16,26 @@ class NotasView {
                     <div id="form-edit-${index}" class="hidden" >
                         <form id="edit-form" class="form-field">
                         <div class="form-note-title">
-                        <div class="label">Título:</div>
-                        <input  
-                            id="edit-title-${index}" 
-                            name="title" type="text" 
-                            class="input" 
-                            value="${note.titulo}"
-                        />
+                            <div class="label">Título:</div>
+                            <input  
+                                id="edit-title-${index}" 
+                                name="title" type="text" 
+                                class="input" 
+                                value="${note.titulo}"
+                            />
                         </div>
                         <div class="form-note-details">
-                        <div class="label">Descrição:</div>
-                        <textarea
-                            id="edit-body-${index}"
-                            name="description"
-                            class="input textarea"
-                        >${note.corpo}
-                        </textarea>
+                            <div class="label">Descrição:</div>
+                            <textarea
+                                id="edit-body-${index}"
+                                name="description"
+                                class="input textarea"
+                            >${note.corpo}</textarea>
                         </div>
-                        <button id="edit-salvar" onclick="notaController.edita(event, ${index})">Salvar</button>
+                        <button id="edit-salvar" onclick="notaController.edita(event, ${index}, ${note.id})">Salvar</button>
                     </div>
                     <button id="editar" onclick="notaController.exibeFormEdita(${index})" class="btn">Editar</button>
-                    <button id="excluir" onclick="notaController.remove(${index})" class="btn">Excluir</button>
+                    <button id="excluir" onclick="notaController.remove(${index}, ${note.id})" class="btn">Excluir</button>
                 </details>
                 
             `}).join('');

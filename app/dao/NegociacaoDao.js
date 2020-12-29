@@ -43,14 +43,15 @@ class NegociacaoDao {
             let notas = [];
             
             cursor.onsuccess = e => {
-                console.log('Lista obtida com sucesso.')
+                // console.log('Lista obtida com sucesso.')
                 let atual = e.target.result;
 
                 if(atual) {
                     let dado = atual.value;
+                    let key = atual.key
 
-                    notas.push(new Nota(dado.corpo, dado.titulo, dado.data));
-
+                    notas.push(new Nota(key, dado.corpo, dado.titulo, dado.data));
+                
                     atual.continue();
                 } else {
                     resolve(notas);
@@ -66,4 +67,47 @@ class NegociacaoDao {
 
     }
 
+    altera(nota, key){
+        return new Promise((resolve, reject) => {
+
+            let request = this._connection
+                            .transaction([this._store], 'readwrite')
+                            .objectStore(this._store)
+                            .put(nota, key);
+
+            request.onsuccess = e => {
+                
+                resolve(console.log('Nota alterada com sucesso.'));
+
+            }
+
+            request.onerror = e => {
+                console.log(e.target.error);
+                reject('Não foi possível alterar a nota.');
+                 
+            }            
+        })
+    }
+
+    apaga(key){
+        return new Promise((resolve, reject) => {
+
+            let request = this._connection
+                            .transaction([this._store], 'readwrite')
+                            .objectStore(this._store)
+                            .delete(key);
+
+            request.onsuccess = e => {
+                
+                resolve(console.log('Nota excluída com sucesso.'));
+
+            }
+
+            request.onerror = e => {
+                console.log(e.target.error);
+                reject('Não foi possível excluir a nota.');
+                 
+            }            
+        })
+    }
 }

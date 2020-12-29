@@ -2,26 +2,32 @@ class NotaController {
     
     constructor() {
         let $ = document.querySelector.bind(document);
-    
-        this._inputTitulo = $('#note-title')
+        
+        this._id = "";
+        this._inputTitulo = $('#note-title');
         this._inputCorpo = $('#note-body');
         this._listaNotas = new ListaNotas();
 
+        this._pegaId = "";
         this._editaTitulo = "";
         this._editaCorpo = "";
         this._editaForm = $('#form-edit');
-        
-        ConnectionFactory
-            .getConnection()
-            .then(connection => new NegociacaoDao(connection))
-            .then(dao => dao.listaTodos())
-            .then(notas => {
-                notas.forEach(nota => {
-                    console.log(nota)
-                    this._listaNotas.adiciona(nota)
-                    this._notasView = new NotasView($('[notes-container]'));
-                    this._notasView.update(this._listaNotas);
-                })})
+
+        this._initialState = () => { 
+            
+            ConnectionFactory
+                .getConnection()
+                .then(connection => new NegociacaoDao(connection))
+                .then(dao => dao.listaTodos())
+                .then(notas => {
+                    notas.forEach(nota => {
+                        // console.log(nota)
+                        this._listaNotas.adiciona(nota)
+                        this._notasView = new NotasView($('[notes-container]'));
+                        this._notasView.update(this._listaNotas);
+            })})
+        }
+        this._initialState();
     }
 
     adiciona(event) {
@@ -30,14 +36,13 @@ class NotaController {
         ConnectionFactory
             .getConnection()
             .then(connection => {
-
                 let nota = this._criaNota();
-
                 new NegociacaoDao(connection)
                     .adiciona(nota)
                     .then(() => {
-                        this._listaNotas.adiciona(nota);
                         this._limpaFormulario();
+                        this._listaNotas.zeraNotas()
+                        this._initialState();
                         this._notasView.update(this._listaNotas);
                     })
 
@@ -48,17 +53,19 @@ class NotaController {
 
     }
 
-    edita(event, index) {
+    edita(event, index, id) {
         event.preventDefault()
+
+        // let nota = this._alteraNota(index, id);
+        // console.log(nota)
 
         ConnectionFactory
             .getConnection()
             .then(connection => {
 
-                let nota = this._alteraNota(index);
-
+                let nota = this._alteraNota(index, id);
                 new NegociacaoDao(connection)
-                    .adiciona(nota)
+                    .altera(nota, id)
                     .then(() => {
                         this._listaNotas.altera(index, nota);
                         this._limpaFormulario();
@@ -83,13 +90,29 @@ class NotaController {
 
     }
 
-    remove(index) {
+    remove(index, key) {
         
-        if(confirm('Realmente deseja excluir esta nota?')) this._listaNotas.apaga(index) 
-        this._notasView.update(this._listaNotas)
+        if(confirm('Realmente deseja excluir esta nota?')) {
+            ConnectionFactory
+            .getConnection()
+            .then(connection => {
+
+                new NegociacaoDao(connection)
+                    .apaga(key)
+                    .then(() => {
+                        this._listaNotas.apaga(index)
+                        this._notasView.update(this._listaNotas);
+                    })
+
+            })
+            .catch(erro => {
+                console.log("Não foi possível excluir a nota. - " + erro)
+            });
+        
+        }
     }
 
-    _alteraNota(index) {
+    _alteraNota(index, id) {
         let data = DateHelper.dataParaTexto(new Date())
 
         let $ = document.querySelector.bind(document);
@@ -100,6 +123,7 @@ class NotaController {
         this._notaCorpo = $(`#note-body-${index}`);
         
         return new Nota(
+            id,
             this._editaCorpo.value, 
             this._editaTitulo.value,
             data
@@ -108,18 +132,33 @@ class NotaController {
     }
 
     _criaNota() {
+
         let data = DateHelper.dataParaTexto(new Date())
         
         return new Nota(
+            this._id,
             this._inputCorpo.value,
             this._inputTitulo.value,
             data
         );
     }
+    
+    // _geraNovaId() {
+        
+    //     ConnectionFactory
+    //         .getConnection()
+    //         .then(connection => new NegociacaoDao(connection))
+    //         .then(dao => dao.listaTodosIds())
+    //         .then((lastKey) => lastKey)
+             
+    // }
 
     _limpaFormulario() {
         this._inputCorpo.value = "";
         this._inputTitulo.value = "";
         this._inputTitulo.focus();
     }
+
+        // let id = this._geraNovaId()
+        // console.log(`Esse é o id = ${id}`)
 }

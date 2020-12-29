@@ -1,6 +1,6 @@
 var ConnectionFactory = (function () {
    const stores = ["notas"];
-   const version = 2;
+   const version = 4;
    const dbName = "appNotes";
 
    var connection = null;
