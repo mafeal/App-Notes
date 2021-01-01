@@ -11,7 +11,7 @@ class NotasView {
                 <details id="${index}" class="note-details">
                     <summary class="note-title">${note.titulo} - ${note.data}</summary>
                     <p id="note-body-${index}" note-body class="note-body">${note.corpo}</p>
-                    <p id="note-title-${index}" class="hidden">${note.titulo} - ${note.data}</p>
+                    <p id="note-title-${index}" class="title hidden">${note.titulo} - ${note.data}</p>
 
                     <div id="form-edit-${index}" class="hidden" >
                         <form id="edit-form" class="form-field">
