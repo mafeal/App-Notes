@@ -19,6 +19,7 @@
 
 .form-field {
     margin: 15px 5px 0px 0px;
+    padding-bottom: 5px;
 }
 
 .form-note-title, .form-note-body {

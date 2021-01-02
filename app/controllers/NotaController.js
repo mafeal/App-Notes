@@ -10,7 +10,6 @@ class NotaController {
       this._pegaId = "";
       this._editaTitulo = "";
       this._editaCorpo = "";
-      this._editaForm = $("#form-edit");
 
       this._initialState = () => {
          ConnectionFactory.getConnection()
