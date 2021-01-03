@@ -10,15 +10,8 @@ User Stories
  When closing the browser window the notes will be stored and when the User returns, the data will be retrieved
 
 Bonus features
- User can create and edit a note in Markdown format. On save it will convert Markdown to HTML
  User can see the date when he created the note
 
-Useful links and resources
-
-localStorage
-Markdown Guide
-Marked - A markdown parser
-Example project
-Markdown Notes built with Angular on Codepen
-
 - Developing that using VanillaJS e IndexedDB.
+
+created by Marcelo Alves (https://github.com/mafeal)
