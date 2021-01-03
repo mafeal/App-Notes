@@ -9,9 +9,11 @@ class NotasView {
             return `
                 
                 <details id="${index}" class="note-details">
-                    <summary class="note-title">${note.titulo} - ${note.data}</summary>
+                    <summary class="note-title title" >${note.titulo} 
+                          <p class="title-data">${note.data}</p>
+                    </summary>
                     <p id="note-body-${index}" note-body class="note-body">${note.corpo}</p>
-                    <p id="note-title-${index}" class="title hidden">${note.titulo} - ${note.data}</p>
+                    <p id="note-title-${index}" class="hidden">${note.titulo} - ${note.data}</p>
 
                     <div id="form-edit-${index}" class="hidden" >
                         <form id="edit-form" class="form-field">
@@ -32,10 +34,10 @@ class NotasView {
                                 class="input textarea"
                             >${note.corpo}</textarea>
                         </div>
-                        <button id="edit-salvar" onclick="notaController.edita(event, ${index}, ${note.id})">Salvar</button>
+                        <button id="edit-salvar" class="btn-primary" onclick="notaController.edita(event, ${index}, ${note.id})">Salvar</button>
                     </div>
-                    <button id="editar" onclick="notaController.exibeFormEdita(${index})" class="btn">Editar</button>
-                    <button id="excluir" onclick="notaController.remove(${index}, ${note.id})" class="btn">Excluir</button>
+                    <button id="editar" class="btn-primary" onclick="notaController.exibeFormEdita(${index})" class="btn">Editar</button>
+                    <button id="excluir" class="btn-primary" onclick="notaController.remove(${index}, ${note.id})" class="btn">Excluir</button>
                 </details>
                 
             `}).join('');

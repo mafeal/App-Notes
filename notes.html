@@ -13,7 +13,7 @@
       <header class="header">APP NOTES</header>
       <div class="container">
          <section class="form-panel">
-            <div class="form-title">Inclua sua nota:</div>
+            <div class="form-title">Inclua sua nota</div>
             <form id="form" action="submit" class="form-field" onsubmit="notaController.adiciona(event)">
                <div class="form-note-title">
                   <div class="label">Título:</div>
@@ -27,14 +27,14 @@
                      class="input textarea"
                   ></textarea>
                </div>
-               <button id="salvar">Salvar</button>
-               <button id="limpar">Limpar</button>
+               <button id="salvar" class="btn-primary">Salvar</button>
+               <button id="limpar" class="btn-primary">Limpar</button>
             </form>
          </section>
          <section class="notes-panel">
             <div class="search">
                <label class="label">Buscar nota:</label>
-               <input id="search-input" class="search-field" onchange="notaController._filtra()"/>
+               <input id="search-input" class="search-field" onkeyup="notaController._filtra()"/>
             </div>
             <div notes-container class="notes-container"></div>
          </section>

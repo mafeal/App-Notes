@@ -128,11 +128,10 @@ class NotaController {
          if (this.value.length > 0) {
             notas.forEach((nota) => {
                var title = nota.querySelector(".title");
-               var titleContente = title.textContent;
+               var titleContent = title.textContent;
                var expressao = new RegExp(this.value, "i");
-
                // Adição aqui
-               if (expressao.test(titleContente)) {
+               if (expressao.test(titleContent)) {
                   nota.classList.remove("hidden");
                } else {
                   nota.classList.add("hidden");

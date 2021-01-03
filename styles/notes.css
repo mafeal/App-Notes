@@ -2,34 +2,52 @@
     margin: 0;
     width: 70%;
     padding: 10px;
-    background-color: floralwhite;
+    background-color: rgb(244, 249, 250);
 }
 
 .search {
     width: 100%;
-    padding: 10px 0;
+    padding-bottom: 5px;
 }
 
 .search-field {
     width: 95%;
     margin-top: 5px;
+    border: 1px solid rgb(140, 140, 224);
+    border-radius: 10px;
 }
 
 .notes-container {
+    display: inline-block;
     width: 97%;
+    vertical-align: top;
 }
 
 .note-details {
-    padding: 5px 0;
+    display: inline;
+    padding: 5px;
+    min-width: 200px;
+    width: 200px;
+    vertical-align: top;
 }
 
 .note-title {
-    padding: 3px;
-    background-color: rgb(233, 225, 211);
-    border-radius: 3px;
+    padding: 5px;
+    color: rgb(209, 209, 238);
+    background-color: rgb(101, 101, 197);
+    border: 1px solid rgb(101, 101, 197);
+    border-radius: 10px;
     box-shadow: 1px 1px 2px rgb(48, 48, 48);
+    font-size: 0.75em;
+}
+
+.title-data {
+    font-size: 0.75em;
+    padding-left: 13px;
+    padding-top: 2px;
 
 }
+
 
 .note-date {
     font-style: italic;
@@ -39,7 +57,14 @@
 .note-body {
     margin: 5px 0;
     padding: 5px;
-    background-color: rgb(240, 240, 240);
+    color: rgb(101, 101, 197);
+    background-color: rgb(224, 233, 250);
     border-radius: 5px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-style: italic;
+}
+
+.hidden {
+    display: none;
 }

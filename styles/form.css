@@ -4,17 +4,19 @@
     min-width: max-content;
     padding: 10px;
     text-align: center;
-    background-color: floralwhite;
-    border-right: solid 1px rgb(182, 182, 182);
+    background-color: rgb(244, 249, 250);
+    border-right: solid 1px rgb(205, 214, 238);
 }
 
 .form-title {
-    padding: 5px;
+    padding: 2px;
     min-width: max-content;
     margin-bottom: 5px;
-    font-weight: bold;
+    font-weight: 400;
+    color: rgb(101, 101, 197);
     background-color: #ffffff;
-    box-shadow: black 1px 1px 3px;
+    border: 1px solid rgb(140, 140, 224);
+    border-radius: 10px;
 }
 
 .form-field {
@@ -24,17 +26,36 @@
 
 .form-note-title, .form-note-body {
     text-align: left;
+    color: rgb(101, 101, 197);
     padding-bottom: 10px;
     width: 100%;
+}
+
+.btn-primary {
+    color: rgb(101, 101, 197);
+    background-color: #ffffff;
+    border: 1px solid rgb(140, 140, 224);
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    color: rgb(209, 209, 238);
+    background-color: rgb(101, 101, 197);
+    border: 1px solid rgb(101, 101, 197);
+    border-radius: 10px;
 }
 
 .label {
     padding-bottom: 3px;
     text-align: left;
+    color: rgb(101, 101, 197);
 }
 
 .input {
     width: 100%;
+    border: 1px solid rgb(140, 140, 224);
+    border-radius: 10px;
+
 }
 
 .textarea {
